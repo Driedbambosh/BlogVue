@@ -3,7 +3,7 @@ import router from './router';
 import storage from 'store';
 import store from './store'
 import { getToken } from '@/util/auth'
-import {ACCESS_TOKEN} from "@/store/mutation-types";
+import { ACCESS_TOKEN } from "@/store/mutation-types";
 
 /**
  * 提示函数
@@ -41,8 +41,8 @@ service.interceptors.request.use(
         // let each request carry token
         const token = storage.get(ACCESS_TOKEN)
         // ['X-Token'] is a custom headers key
-        if(token) {
-          config.headers['authorization'] = 'Bearer ' + token
+        if (token) {
+            config.headers['authorization'] = 'Bearer ' + token
         }
         // please modify it according to the actual situation
         // console.log(config);
