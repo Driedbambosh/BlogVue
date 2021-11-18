@@ -7,6 +7,7 @@ import {
 } from 'element-ui';
 import store from './store'
 import 'element-ui/lib/theme-chalk/index.css';
+import "tailwindcss/tailwind.css"
 
 Vue.prototype.$message = Message;
 Vue.prototype.$msgbox = MessageBox;

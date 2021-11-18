@@ -56,8 +56,8 @@ module.exports = {
   devServer: {
     port: 3000,
     proxy: {
-      '/myblog': {
-        target: 'http://localhost:8088', //内网 代理文件服务器地址
+      '/my-blog': {
+        target: 'http://81.69.219.182:8088/', //内网 代理文件服务器地址
         ws: false,
         changeOrigin: true
       },

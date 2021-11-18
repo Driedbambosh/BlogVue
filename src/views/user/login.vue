@@ -1,9 +1,8 @@
 <template>
   <div class="wrap">
-    <div class="login-box">
-      <div class="left">
-      </div>
-      <div class="right">
+    <div class="rounded-none sm:rounded-2xl login-box h-full sm:h-3/5">
+      <div class="left hidden sm:block"></div>
+      <div @keyup.enter="loginFrom" class="right w-full sm:w-9/12">
         <h1 class="miku">登录</h1>
         <el-form style="width: 60%; height: 40%" ref="form" :model="form">
           <el-form-item>
@@ -21,7 +20,7 @@
             ></el-input>
           </el-form-item>
         </el-form>
-        <button>Login</button>
+        <button @click="loginFrom">Login</button>
         <div
           class="flexBox"
           style="width: 60%; color: #39c5bb; margin-top: 50px"
@@ -51,8 +50,8 @@ export default {
     loginFrom() {
       this.$store
         .dispatch("Login", {
-          userName: "1145761792",
-          passWord: "Aa171468186",
+          userName: this.form.userName,
+          passWord: this.form.passWord,
         })
         .then((res) => this.loginSuccess(res))
         .catch((err) => this.loginFailed(err))
@@ -88,12 +87,12 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: linear-gradient(180deg, #009efd 0%, #2af598  100%);
+  background-image: linear-gradient(180deg, #009efd 0%, #2af598 100%);
 }
 .login-box {
   width: 900px;
-  height: 500px;
-  border-radius: 10px;
+  /* height: 500px; */
+  /* border-radius: 10px; */
   overflow: hidden;
   box-shadow: -5px 3px 10px rgba(0, 0, 0, 0.5);
   background-image: linear-gradient(-20deg, #e9defa 0%, #fbfcdb 100%);
@@ -106,12 +105,12 @@ a {
   height: 100%;
   width: 30%;
   background: url(../../assets/loginBgc.jpg) no-repeat;
-  background-size: 900px;
-  background-position: -368px 0;
+  background-size: 63.75rem;
+  background-position: -452px 0;
 }
 .login-box .right {
   height: 100%;
-  width: 70%;
+  /* width: 70%; */
   display: flex;
   box-sizing: border-box;
   /* justify-content: center; */
@@ -135,6 +134,9 @@ a {
 }
 .miku {
   color: #39c5bb;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 32px;
 }
 
 button {
