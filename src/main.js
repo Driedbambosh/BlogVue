@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import {
   Button, Message, MessageBox, Form,
-  FormItem,Input,
+  FormItem,Input,Icon,
 } from 'element-ui';
 import store from './store'
 import 'element-ui/lib/theme-chalk/index.css';
@@ -18,6 +18,7 @@ Vue.use(Button)
 Vue.use(Form)
 Vue.use(FormItem)
 Vue.use(Input)
+Vue.use(Icon)
 
 new Vue({
   router,

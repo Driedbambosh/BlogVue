@@ -1,7 +1,9 @@
 <template>
-    <div class="fixed top-0 sm:static box flexContainer">
-      <div class="flex-shrink-0 left">Blog</div>
-      <div class="center invisible sm:visible">
+    <div class="box flexContainer">
+      <!-- <div class="flex-shrink-0 left">
+      Blog
+    </div> -->
+      <div class="center">
         <span
           :class="active == 'front' ? 'activeClass' : ''"
           @click="$router.push({ path: '/front' })"
@@ -16,24 +18,21 @@
           关于</span
         >
       </div>
-      <div class="flex-shrink-0 flex flex-row-reverse right">
-        <div
-          :style="{
-            'background-image': 'url(' + user.avatar ? user.avatar : +')',
-          }"
-          class="rounded-full bg-cover logo w-full h-full"
-        ></div>
-      </div>
+      <!-- <div class="flex-shrink-0 flex flex-row-reverse right">
+      <div
+        :style="{
+          'background-image': 'url(' + user.avatar ? user.avatar : +')',
+        }"
+        class="rounded-full bg-cover logo w-full h-full"
+      ></div>
+    </div> -->
     </div>
 </template>
 
 <script>
-import { getUserInfo } from "@/util/auth.js";
-
 export default {
   data() {
     return {
-      user: {},
       active: "",
     };
   },
@@ -45,11 +44,7 @@ export default {
   created() {
     this.active = this.$route.name;
   },
-  methods: {
-    getUser() {
-      this.user = getUserInfo();
-    },
-  },
+  methods: {},
 };
 </script>
 
@@ -65,6 +60,8 @@ export default {
   width: 100%;
   height: 3.4375rem;
   background-color: #224870;
+  position: fixed;
+  bottom: 0;
 }
 .box .center {
   flex-grow: 10;
@@ -88,7 +85,7 @@ export default {
 .box span {
   cursor: pointer;
   height: 100%;
-  width: 6.25rem;
+  /* width: 6.25rem; */
   display: inline-block;
   text-align: center;
   font-size: 20px;
@@ -117,5 +114,6 @@ export default {
   background-image: url("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Foscimg.oschina.net%2Foscnet%2Fe6f34727c930cfa1dddff211fc74d4777e3.png&refer=http%3A%2F%2Foscimg.oschina.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1639794447&t=ebbd52486b736faf4a8a88d49c4141ab");
   width: 3.4375rem;
   cursor: pointer;
+  
 }
 </style>

@@ -5,8 +5,8 @@ import storage from 'store';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css'
 import findLast from 'lodash/findLast';
-import { needLogin,logout } from "@/util/auth"
-import {ACCESS_TOKEN,USER_ROLE} from "@/store/mutation-types";
+import { needLogin, logout } from "@/util/auth"
+import { ACCESS_TOKEN, USER_ROLE } from "@/store/mutation-types";
 
 Vue.use(VueRouter)
 
@@ -15,8 +15,13 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
-    redirect:'/about',
+    redirect: '/front',
     children: [
+      {
+        path: 'front',
+        name: 'front',
+        component: () => import(/* webpackChunkName: "about" */ '../views/front.vue'),
+      },
       {
         path: 'about',
         name: 'about',
@@ -42,6 +47,10 @@ const routes = [
 const router = new VueRouter({
   routes
 })
+const originalPush = VueRouter.prototype.push
+   VueRouter.prototype.push = function push(location) {
+   return originalPush.call(this, location).catch(err => err)
+}
 
 
 router.beforeEach((to, from, next) => {

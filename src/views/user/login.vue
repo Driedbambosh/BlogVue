@@ -14,6 +14,7 @@
           </el-form-item>
           <el-form-item style="margin-top: 40px">
             <el-input
+              type="password"
               class="loginInput"
               v-model="form.passWord"
               placeholder="密码"
