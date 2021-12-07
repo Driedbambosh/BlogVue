@@ -65,6 +65,7 @@ export default {
   width: 100%;
   height: 3.4375rem;
   background-color: #224870;
+  z-index: 9999;
 }
 .box .center {
   flex-grow: 10;

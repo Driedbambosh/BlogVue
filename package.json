@@ -8,10 +8,12 @@
     "build:stage": "vue-cli-service build --mode staging"
   },
   "dependencies": {
+    "animejs": "^3.2.1",
     "axios": "^0.24.0",
     "core-js": "^3.6.5",
     "element-ui": "^2.15.6",
     "lodash": "^4.17.20",
+    "moment": "^2.29.1",
     "nprogress": "^0.2.0",
     "store": "^2.0.12",
     "vue": "^2.6.11",

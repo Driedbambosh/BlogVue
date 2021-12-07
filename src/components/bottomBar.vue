@@ -61,6 +61,7 @@ export default {
   height: 3.4375rem;
   background-color: #224870;
   position: fixed;
+  z-index: 9999;
   bottom: 0;
 }
 .box .center {

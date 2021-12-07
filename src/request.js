@@ -60,11 +60,11 @@ service.interceptors.response.use(
     //请求成功
     response => {
         const res = response.data;
-        if (res.code !== 200 && res.status !== 200) {
-            return Promise.reject(res)
-        } else {
+        // if (res.code !== 200 && res.status !== 200) {
+        //     return Promise.reject(res)
+        // } else {
             return res
-        }
+        // }
     },
     //请求失败
     error => {

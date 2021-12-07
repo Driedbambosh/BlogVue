@@ -1,7 +1,20 @@
 <template>
   <div class="home">
     <top-bar ref="topBar"></top-bar>
-    <router-view class="h-86vh sm:h-full home" style="overflow: auto" />
+    <router-view
+      @loadingtrue="loadingtrue"
+      @loadingFalse="loadingFalse"
+      class="sm:h-full home"
+      style="overflow: auto"
+    />
+    <div
+      element-loading-text="拼命加载中"
+      element-loading-spinner="el-icon-loading"
+      element-loading-background="rgba(0, 0, 0, 0.8)"
+      v-loading="loading"
+      v-if="loading"
+      class="loading"
+    ></div>
     <bottom-bar class="visible sm:invisible" ref="bottomBar"></bottom-bar>
   </div>
 </template>
@@ -23,6 +36,11 @@ export default {
   mounted() {
     this.getUser();
   },
+  data() {
+    return {
+      loading: false,
+    };
+  },
   methods: {
     getUser() {
       getInfo().then((res) => {
@@ -30,12 +48,28 @@ export default {
         this.$refs.topBar.getUser();
       });
     },
+    loadingtrue() {
+      this.loading = true;
+    },
+    loadingFalse() {
+      this.loading = false;
+    },
   },
 };
 </script>
 
 <style scoped>
 .home {
-  height: 100%;
+  /* height: 100%; */
+}
+
+.loading {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 999;
+  /* background-color: pink; */
 }
 </style>
