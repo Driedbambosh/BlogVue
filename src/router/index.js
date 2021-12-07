@@ -15,17 +15,17 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
-    redirect: '/front',
+    redirect: '/home1',
     children: [
       {
-        path: 'front',
-        name: 'front',
-        component: () => import(/* webpackChunkName: "about" */ '../views/front.vue'),
+        path: 'home1',
+        name: 'home1',
+        component: () => import('../views/home1.vue'),
       },
       {
         path: 'about',
         name: 'about',
-        component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+        component: () => import('../views/About.vue'),
       }
     ]
   },

@@ -5,8 +5,8 @@
     </div> -->
       <div class="center">
         <span
-          :class="active == 'front' ? 'activeClass' : ''"
-          @click="$router.push({ path: '/front' })"
+          :class="active == 'home1' ? 'activeClass' : ''"
+          @click="$router.push({ path: '/home1' })"
         >
           <i class="el-icon-s-home"></i> 首页</span
         >
