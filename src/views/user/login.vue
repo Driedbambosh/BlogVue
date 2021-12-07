@@ -2,9 +2,15 @@
   <div class="wrap">
     <div class="rounded-none sm:rounded-2xl login-box h-full sm:h-3/5">
       <div class="left hidden sm:block"></div>
-      <div @keyup.enter="loginFrom" class="right w-full sm:w-9/12">
-        <h1 class="miku">登录</h1>
-        <el-form style="width: 60%; height: 40%" ref="form" :model="form">
+      <div class="right w-full sm:w-9/12">
+        <h1 v-if="!isRegister" class="miku">登录</h1>
+        <h1 v-else class="miku">注册</h1>
+        <el-form
+          v-if="!isRegister"
+          style="width: 60%; height: 40%"
+          ref="form"
+          :model="form"
+        >
           <el-form-item>
             <el-input
               class="loginInput"
@@ -21,12 +27,44 @@
             ></el-input>
           </el-form-item>
         </el-form>
-        <button @click="loginFrom">Login</button>
+        <!-- 注册 -->
+        <el-form
+          v-else
+          style="width: 60%; height: 70%"
+          ref="formRegister"
+          :model="formRegister"
+        >
+          <el-form-item>
+            <el-input
+              class="loginInput"
+              v-model="formRegister.userName"
+              placeholder="用户名"
+            ></el-input>
+          </el-form-item>
+          <el-form-item style="margin-top: 40px">
+            <el-input
+              type="password"
+              class="loginInput"
+              v-model="formRegister.passWord"
+              placeholder="密码"
+            ></el-input>
+          </el-form-item>
+          <el-form-item style="margin-top: 40px">
+            <el-input
+              type="password"
+              class="loginInput"
+              v-model="passwordAgain"
+              placeholder="再次确认密码"
+            ></el-input>
+          </el-form-item>
+        </el-form>
+        <button v-if="!isRegister" @click="loginFrom">登录</button>
+        <button v-else @click="register">注册</button>
         <div
           class="flexBox"
           style="width: 60%; color: #39c5bb; margin-top: 50px"
         >
-          <a>注册</a>
+          <a @click="isRegister = !isRegister">注册</a>
           <a>找回密码</a>
         </div>
       </div>
@@ -35,15 +73,28 @@
 </template>
 
 <script>
-// import { login } from "@/api/user";
+import { register } from "@/api/user";
 
 export default {
   name: "login",
   created() {},
   mounted() {},
+  watch: {
+    passwordAgain(newVal) {
+      if (newVal !== this.formRegister.passWord) {
+        this.isPassword = false;
+      } else {
+        this.isPassword = true;
+      }
+    },
+  },
   data() {
     return {
       form: {},
+      formRegister: {},
+      isRegister: false,
+      passwordAgain: "",
+      isPassword: false,
     };
   },
   methods: {
@@ -54,11 +105,30 @@ export default {
           userName: this.form.userName,
           passWord: this.form.passWord,
         })
-        .then((res) => this.loginSuccess(res))
-        .catch((err) => this.loginFailed(err))
-        .finally(() => {
-          this.loginBtn = false;
+        .then((res) => {
+          if (res.status == 200) {
+            this.loginSuccess(res);
+          } else {
+            this.loginFailed(res);
+          }
         });
+    },
+    register() {
+      const taht = this;
+      if (!this.isPassword) {
+        this.$message.warning("两次密码输入不一致");
+      } else {
+        console.log(this.formRegister);
+        register({ ...this.formRegister }).then((res) => {
+          if (res.status == 200) {
+            this.$message.success(res.message);
+            this.isRegister = false;
+            this.formRegister = {};
+          } else {
+            this.$message.warning(res.message);
+          }
+        });
+      }
     },
     // 登录成功要做的事
     loginSuccess(res) {
@@ -67,7 +137,6 @@ export default {
       this.$message.success(res.message);
     },
     loginFailed(err) {
-      console.log(err);
       this.$message.warning(err);
     },
   },

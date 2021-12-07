@@ -8,6 +8,14 @@ export function login(data) {
   })
 }
 
+export function register(data) {
+  return request({
+    url: '/users/register',
+    method: 'post',
+    data
+  })
+}
+
 export function getInfo(token) {
   return request({
     url: '/users/getUserInfo',
