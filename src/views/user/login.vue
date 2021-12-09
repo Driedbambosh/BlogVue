@@ -118,7 +118,6 @@ export default {
       if (!this.isPassword) {
         this.$message.warning("两次密码输入不一致");
       } else {
-        console.log(this.formRegister);
         register({ ...this.formRegister }).then((res) => {
           if (res.status == 200) {
             this.$message.success(res.message);

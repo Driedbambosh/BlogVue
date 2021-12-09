@@ -19,7 +19,7 @@
       <div class="flex-shrink-0 flex flex-row-reverse right">
         <div
           :style="{
-            'background-image': 'url(' + user.avatar ? user.avatar : +')',
+            'background-image': 'url(' + user.avatar+')',
           }"
           class="rounded-full bg-cover logo w-full h-full"
         ></div>
@@ -115,7 +115,7 @@ export default {
 }
 
 .logo {
-  background-image: url("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Foscimg.oschina.net%2Foscnet%2Fe6f34727c930cfa1dddff211fc74d4777e3.png&refer=http%3A%2F%2Foscimg.oschina.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1639794447&t=ebbd52486b736faf4a8a88d49c4141ab");
+  /* background-image: url("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Foscimg.oschina.net%2Foscnet%2Fe6f34727c930cfa1dddff211fc74d4777e3.png&refer=http%3A%2F%2Foscimg.oschina.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1639794447&t=ebbd52486b736faf4a8a88d49c4141ab"); */
   width: 3.4375rem;
   cursor: pointer;
 }

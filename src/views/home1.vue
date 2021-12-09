@@ -42,7 +42,11 @@
           <i class="el-icon-arrow-left"></i>
           返回
         </div>
-        <div v-html="article.article"></div>
+        <!-- <div class="ql-editor" v-html="article.article"></div> -->
+        <div class="ql-container ql-snow">
+            <div class="ql-editor" v-html="article.article">
+            </div>
+        </div>
       </div>
     </div>
     <div class="right sm:w-3/12"></div>
@@ -52,6 +56,7 @@
 <script>
 import { getArticles, getArticle } from "@/api/article";
 import moment from "moment";
+import "highlight.js/styles/sunburst.css";
 // import anime from "animejs";
 
 export default {
@@ -178,7 +183,8 @@ h1 {
 .back {
   cursor: pointer;
   margin-bottom: 1.25rem;
-  color: #39c5bb
+  color: #39c5bb;
+  width: 9.375rem
 }
 #left {
   width: 20%;

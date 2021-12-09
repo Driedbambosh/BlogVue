@@ -6,6 +6,7 @@ import {
   FormItem,Input,Icon,Pagination,Avatar,Loading
 } from 'element-ui';
 import store from './store'
+import './VueQuillEditor.js'
 import 'element-ui/lib/theme-chalk/index.css';
 import "tailwindcss/tailwind.css"
 
