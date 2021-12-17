@@ -4,7 +4,7 @@
       <div class="center invisible sm:visible">
         <span
           :class="active == 'home1' ? 'activeClass' : ''"
-          @click="$router.push({ path: '/home1' })"
+          @click="$router.push({ path: '/articleList' })"
         >
           <i class="el-icon-s-home"></i> 首页</span
         >
