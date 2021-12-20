@@ -59,6 +59,7 @@ module.exports = {
       '/my-blog': {
         // target: 'http://81.69.219.182:8088/', //外网 
         target: 'http://localhost:8088/', //内网 
+        // target: 'http://192.168.0.117:8088/', //内网 
         ws: false,
         changeOrigin: true
       },

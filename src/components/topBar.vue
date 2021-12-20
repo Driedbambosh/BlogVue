@@ -3,7 +3,7 @@
       <div class="flex-shrink-0 left">Blog</div>
       <div class="center invisible sm:visible">
         <span
-          :class="active == 'home1' ? 'activeClass' : ''"
+          :class="active == 'articleList' ? 'activeClass' : ''"
           @click="$router.push({ path: '/articleList' })"
         >
           <i class="el-icon-s-home"></i> 首页</span

@@ -5,9 +5,11 @@
         <div @click="getArticleData(item._id)" class="articleContent">
           <div
             :style="{ 'background-image': 'url(' + item.picture + ')' }"
-            class="bg-cover hidden sm:block"
+            class="bg-cover hidden sm:block articleListLeft"
             id="left"
-          ></div>
+          >
+           <!-- <img class="articleListLeft" :src="item.picture" alt=""> -->
+          </div>
           <div id="right" class="w-max sm:w-5/6">
             <h1 :title="item.title">{{ item.title }}</h1>
             <p>{{ item.introduction }}</p>
@@ -182,6 +184,9 @@ h1 {
   align-items: center;
   font-size: 12px;
   
+}
+.articleListLeft {
+  object-fit: scale-down;
 }
 ::v-deep .el-pagination.is-background .el-pager li:not(.disabled).active {
   background-color: #39c5bb;

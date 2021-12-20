@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import {
   Button, Message, MessageBox, Form,
-  FormItem,Input,Icon,Pagination,Avatar,Loading
+  FormItem,Input,Icon,Pagination,Avatar,Loading,Popover
 } from 'element-ui';
 import store from './store'
 import './VueQuillEditor.js'
@@ -18,13 +18,14 @@ Vue.prototype.$loading = Loading.service;
 Vue.config.productionTip = false
 
 
-Vue.use(Button)
-Vue.use(Form)
-Vue.use(FormItem)
-Vue.use(Input)
-Vue.use(Icon)
+Vue.use(Button);
+Vue.use(Form);
+Vue.use(FormItem);
+Vue.use(Input);
+Vue.use(Icon);
 Vue.use(Pagination);
 Vue.use(Avatar);
+Vue.use(Popover);
 
 new Vue({
   router,

@@ -17,3 +17,21 @@ export function getArticle(params) {
     params
   })
 }
+
+// 文章评论
+export function sendArticleComment(data) {
+  return request({
+    url: 'article/comment',
+    method: 'post',
+    data
+  })
+}
+
+// 获取文章评论
+export function getArticleComment(params) {
+  return request({
+    url: 'article/getArticleComment',
+    method: 'get',
+    params
+  })
+}

@@ -15,21 +15,33 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
+    meta: {
+      title: '首页'
+    },
     redirect: '/articleList',
     children: [
       {
         path: 'articleList',
         name: 'articleList',
+        meta: {
+          title: '首页'
+        },
         component: () => import('../views/article/articleList.vue'),
       },
       {
         path: 'articleDetail',
         name: 'articleDetail',
+        meta: {
+          title: '文章'
+        },
         component: () => import('../views/article/articleDetail.vue'),
       },
       {
         path: 'about',
         name: 'about',
+        meta: {
+          title: '关于'
+        },
         component: () => import('../views/About.vue'),
       }
     ]
@@ -53,8 +65,8 @@ const router = new VueRouter({
   routes
 })
 const originalPush = VueRouter.prototype.push
-   VueRouter.prototype.push = function push(location) {
-   return originalPush.call(this, location).catch(err => err)
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
 }
 
 
@@ -63,6 +75,10 @@ router.beforeEach((to, from, next) => {
   if (to.path !== from.path) {
     NProgress.start()
   }
+  if (to.meta.title) {
+    document.title = to.meta.title
+  }
+  next()
   const token = storage.get(ACCESS_TOKEN)
   //前往不需要登录的页面时，如果已登录过，需要先退出，清除token
   if (!needLogin(to.path)) {
