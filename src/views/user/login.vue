@@ -64,7 +64,7 @@
           class="flexBox"
           style="width: 60%; color: #39c5bb; margin-top: 50px"
         >
-          <a @click="isRegister = !isRegister">注册</a>
+          <a @click="isRegister = !isRegister">{{isRegister?'登录':'注册'}}</a>
           <a>找回密码</a>
         </div>
       </div>
