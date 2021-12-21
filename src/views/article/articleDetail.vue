@@ -17,21 +17,67 @@
       <div class="comment">
         <h1>Comment</h1>
         <!-- 评论 -->
-        <div class="commentList">
+        <div v-if="articleCommentList.length !== 0" class="commentList">
+          <!-- 一级评论 -->
           <div
             class="commentListContent"
             v-for="item in articleCommentList"
             :key="item.id"
           >
-            <div
-              :style="{ 'background-image': 'url(' + item.userId.avatar + ')' }"
-              class="leftAvatar"
-            ></div>
-            <div class="rightComment">
-              <h2>{{ item.userId.nickName }}</h2>
-              <p>{{ item.content }}</p>
+            <div style="display: flex">
+              <div
+                :style="{
+                  'background-image': 'url(' + item.userId.avatar + ')',
+                }"
+                class="leftAvatar"
+              ></div>
+              <div class="rightComment">
+                <h2>{{ item.userId.nickName }}</h2>
+                <p>{{ item.content }}</p>
+                <div class="TimeComment">
+                  <span>{{ isoTime(item.createdAt) }}</span>
+                  <span
+                    @click="reply(item)"
+                    style="margin-left: 0.625rem; cursor: pointer"
+                    >回复</span
+                  >
+                </div>
+              </div>
             </div>
+            <!-- 二级评论 -->
+            <div
+              class="commentListContentSon"
+              v-for="itemSon in item.replayData"
+              :key="itemSon.id"
+            >
+              <div style="display: flex">
+                <div
+                  :style="{
+                    'background-image':
+                      'url(' + itemSon.userId.avatar + ')',
+                  }"
+                  class="leftAvatarSon"
+                ></div>
+                <div class="rightComment">
+                  <h2 style="font-size:13px">{{ itemSon.userId.nickName }} 回复@ {{itemSon.commentUserId.nickName}}</h2>
+                  <p style="font-size:14px">{{ itemSon.content }}</p>
+                  <div class="TimeComment">
+                    <span>{{ isoTime(itemSon.createdAt) }}</span>
+                    <span
+                      @click="replySon(itemSon,item)"
+                      style="margin-left: 0.625rem; cursor: pointer"
+                      >回复</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- ----- -->
           </div>
+          <!-- --------- -->
+        </div>
+        <div style="color:#b3b3b3;position:relative" v-else class="commentList">
+          <span style="position:absolute;top:50%;left:50%;transform: translate(-50%,-50%);">没有更多评论</span>
         </div>
 
         <!-- 评论输入框 -->
@@ -62,6 +108,9 @@
           v-model="textarea"
           class="chatText"
           resize="none"
+          :placeholder="
+            isCommentFather ? '回复 @' + replyData.userId.nickName : ''
+          "
           type="textarea"
           id="textarea"
           rows="5"
@@ -69,11 +118,18 @@
         ></el-input>
         <!-- ------------- -->
         <div style="margin-top: 0.625rem">
-          <el-button v-if="isCommentFather" style="float: right" type="primary"
-            >取消</el-button
-          >
-          <el-button @click="sendComment" style="float: right" type="primary"
+          <el-button
+            @click="sendComment"
+            style="float: right; margin-left: 0.625rem"
+            type="primary"
             >评论</el-button
+          >
+          <el-button
+            @click="noReply"
+            v-if="isCommentFather"
+            style="float: right"
+            type="primary"
+            >取消回复</el-button
           >
         </div>
       </div>
@@ -106,6 +162,7 @@ export default {
       article: {
         picture: "",
       },
+      replyData: {}, // 回复数据
     };
   },
   computed: {
@@ -129,6 +186,22 @@ export default {
     this.getComment();
   },
   methods: {
+    // 取消回复
+    noReply() {
+      this.isCommentFather = false;
+      this.replyData = {};
+    },
+    // 回复
+    reply(data) {
+      this.isCommentFather = true;
+      this.replyData = data;
+    },
+    // 回复
+    replySon(dataSon,data) {
+      this.isCommentFather = true;
+      this.replyData = {...dataSon};
+      this.replyData._id = data._id
+    },
     // 获取文章评论
     getComment() {
       getArticleComment({ id: this.id, isFather: 1 }).then((res) => {
@@ -137,13 +210,29 @@ export default {
     },
     //评论
     sendComment() {
-      sendArticleComment({
-        articleId: this.id,
-        content: this.textarea,
-        isFather: true,
-      }).then((res) => {
-        this.getComment();
-      });
+      // 判断是否为回复
+      if (this.isCommentFather) {
+        sendArticleComment({
+          articleId: this.id,
+          content: this.textarea,
+          isFather: false,
+          commentId: this.replyData._id,
+          commentUserId: this.replyData.userId._id,
+        }).then((res) => {
+          this.getComment();
+        });
+      } else {
+        sendArticleComment({
+          articleId: this.id,
+          content: this.textarea,
+          isFather: true,
+        }).then((res) => {
+          this.getComment();
+        });
+      }
+      this.isCommentFather = false;
+      this.replyData = {};
+      this.textarea = "";
     },
     //获取文章详情
     getArticleData(id) {
@@ -240,24 +329,38 @@ h1 {
   width: 100%;
   height: 18.75rem;
 }
+.TimeComment {
+  font-size: 12px;
+  color: #b3b3b3;
+}
 .commentList {
   min-height: 12.5rem;
-  background-color: pink;
+  /* background-color: pink; */
   margin-top: 0.625rem;
   padding: 0.625rem;
 }
 .commentListContent:first-child {
   margin-top: 0px;
 }
+.commentListContentSon:first-child {
+  margin-top: 0px;
+}
 .commentListContent:last-child {
   border-bottom: 1px solid #696969;
 }
+.commentListContentSon {
+  /* display: flex; */
+  margin-left: 2.8125rem;
+  margin-top: 0.3125rem;
+  padding-top: 0.3125rem;
+  padding-bottom: 0.3125rem;
+}
 .commentListContent {
-  display: flex;
-  margin-top:.3125rem;
+  /* display: flex; */
+  margin-top: 0.3125rem;
   border-top: 1px solid #696969;
-  padding-top: .3125rem;
-  padding-bottom: .3125rem;
+  padding-top: 0.3125rem;
+  padding-bottom: 0.3125rem;
 }
 #right {
   /* width: 80%; */
@@ -288,10 +391,16 @@ h1 {
   color: #71797e;
 }
 .leftAvatar {
-  width: 3.125rem;
-  height: 3.125rem;
+  width: 2.8125rem;
+  height: 2.8125rem;
   background-size: 100%;
-  border-radius: 3.125rem;
+  border-radius: 2.8125rem;
+}
+.leftAvatarSon {
+  width: 2.1875rem;
+  height: 2.1875rem;
+  background-size: 100%;
+  border-radius: 2.1875rem;
 }
 ::v-deep .el-pagination.is-background .el-pager li:not(.disabled).active {
   background-color: #39c5bb;
