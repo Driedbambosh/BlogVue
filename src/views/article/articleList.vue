@@ -24,13 +24,13 @@
             <h1
               style="cursor: pointer; font-size: 26px"
               @click="getArticleData(item._id)"
-              :title="item.title"
             >
               {{ item.title }}
             </h1>
             <p
               style="cursor: pointer"
               @click="getArticleData(item._id)"
+              :title="item.introduction"
               class="introduction"
             >
               {{ item.introduction }}
@@ -50,7 +50,11 @@
             >
             <div class="absolute sm:static" style="bottom: 0px">
               <span class="userInfo static sm:absolute">
-                <el-avatar size="small" :src="item.userId.avatar"></el-avatar>
+                <el-avatar size="small" :src="item.userId.avatar">
+                  <img
+                    src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png"
+                  />
+                </el-avatar>
                 <p style="margin-left: 10px; white-space: nowrap">
                   {{ item.userId.nickName }}
                 </p>
@@ -132,7 +136,7 @@ export default {
     isoTime() {
       return (index) => {
         return moment(index, ["YYYY", moment.ISO_8601]).format(
-          "YYYY-MM-DD h:mm:ss"
+          "YYYY-MM-DD hh:mm:ss"
         );
       };
     },
@@ -192,6 +196,7 @@ export default {
         pageNo: 1,
       }).then((res) => {
         this.options = res.data;
+        this.$store.commit("SET_LABELNAME", res.data);
       });
     },
     //获取文章详情

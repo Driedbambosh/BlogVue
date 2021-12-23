@@ -6,10 +6,14 @@ const user = {
     state: {
         name: '',
         roles: [],
+        labelData: [],
     },
     mutations: {
         SET_NAME: (state, name) => {
             state.name = name
+        },
+        SET_LABELNAME: (state, data) => {
+            state.labelData = data
         },
         SET_ROLES: (state, roles) => {
             state.roles = roles

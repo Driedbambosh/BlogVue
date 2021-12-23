@@ -2,7 +2,9 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import {
-  Button, Message, MessageBox, Form,
+  Button, Message, MessageBox, Form, Dropdown,
+  DropdownMenu,
+  DropdownItem,
   FormItem, Input, Icon, Pagination, Avatar, Loading, Popover, Tag,
 } from 'element-ui';
 import store from './store'
@@ -29,6 +31,9 @@ Vue.use(Pagination);
 Vue.use(Avatar);
 Vue.use(Popover);
 Vue.use(Tag);
+Vue.use(Dropdown);
+Vue.use(DropdownMenu);
+Vue.use(DropdownItem);
 
 new Vue({
   router,

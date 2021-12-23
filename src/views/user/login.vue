@@ -133,7 +133,7 @@ export default {
     loginSuccess(res) {
       this.$router.push("/");
 
-      this.$message.success(res.message);
+      // this.$message.success(res.message);
     },
     loginFailed(err) {
       this.$message.warning(err);

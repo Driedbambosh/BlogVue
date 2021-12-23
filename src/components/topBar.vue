@@ -1,7 +1,7 @@
 <template>
   <div id="flexContainer" class="fixed top-0 box flexContainer">
     <div class="flex-shrink-0 left">Blog</div>
-    <div class="center invisible sm:visible">
+    <div class="center hidden sm:flex">
       <span
         :class="active == 'articleList' ? 'activeClass' : ''"
         @click="$router.push({ path: '/articleList' })"
@@ -16,13 +16,57 @@
         关于</span
       >
     </div>
+    <div v-if="active !== 'articleDetail'" class="center flex sm:hidden">
+      <el-dropdown trigger="click">
+        <span class="el-dropdown-link">
+          标签<i class="el-icon-arrow-down el-icon--right"></i>
+        </span>
+        <el-dropdown-menu style="background-color: #224870" slot="dropdown">
+          <el-dropdown-item
+            class="dropItem"
+            @click.native="labelSearch(item._id, item.labelName)"
+            v-for="item in labelData"
+            :key="item._id"
+            style="color: #fff"
+            >{{ item.labelName }}</el-dropdown-item
+          >
+        </el-dropdown-menu>
+      </el-dropdown>
+    </div>
     <div class="flex-shrink-0 flex flex-row-reverse right">
-      <div
-        :style="{
-          'background-image': 'url(' + user.avatar + ')',
-        }"
-        class="rounded-full bg-cover logo w-full h-full"
-      ></div>
+      <el-dropdown trigger="click">
+        <span class="el-dropdown-link">
+          <el-avatar
+            class="rounded-full bg-cover logo w-full h-full"
+            size="large"
+            :src="user.avatar"
+          >
+            <img
+              src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png"
+            />
+          </el-avatar>
+          <!-- <div
+            :style="{
+              'background-image': 'url(' + user.avatar + ')',
+            }"
+            class="rounded-full bg-cover logo w-full h-full"
+          ></div> -->
+        </span>
+        <el-dropdown-menu style="background-color: #224870" slot="dropdown">
+          <el-dropdown-item
+            class="dropItem"
+            @click.native="myHome()"
+            style="color: #fff"
+            >个人主页</el-dropdown-item
+          >
+          <el-dropdown-item
+            class="dropItem"
+            @click.native="logOut()"
+            style="color: #fff"
+            >退出</el-dropdown-item
+          >
+        </el-dropdown-menu>
+      </el-dropdown>
     </div>
   </div>
 </template>
@@ -37,8 +81,11 @@ export default {
       active: "",
     };
   },
-  mounted() {
-    // window.addEventListener("scroll", this.handleScroll);
+  mounted() {},
+  computed: {
+    labelData() {
+      return this.$store.state.user.labelData;
+    },
   },
   watch: {
     $route(to, from) {
@@ -49,8 +96,19 @@ export default {
     this.active = this.$route.name;
   },
   methods: {
+    logOut() {
+      this.$store.dispatch("Logout").then((res) => {
+        this.$router.push("/login");
+      });
+    },
+    myHome() {
+      location.href = "/admin";
+    },
     getUser() {
       this.user = getUserInfo();
+    },
+    labelSearch(id, name) {
+      this.$emit("labelSearch", id, name);
     },
     // handleScroll() {
     //   var scrollTop =
@@ -67,7 +125,20 @@ export default {
   },
 };
 </script>
-
+<style>
+.el-popper {
+  border: none !important;
+}
+.el-popper .el-dropdown-menu__item:hover {
+  background-color: #39c5bb !important;
+}
+.el-popper .popper__arrow {
+  border: 0 !important;
+}
+.el-popper .popper__arrow::after {
+  content: none !important;
+}
+</style>
 <style scoped>
 .activeClass {
   border-bottom: 2px solid #39c5bb;
@@ -84,7 +155,6 @@ export default {
 }
 .box .center {
   flex-grow: 10;
-  display: flex;
   justify-content: center;
 }
 .box .left {
@@ -101,10 +171,10 @@ export default {
   flex-grow: 1;
   padding-right: 10px;
 }
-.box span {
+.center span {
   cursor: pointer;
   height: 100%;
-  width: 6.25rem;
+  width: 7.25rem;
   display: inline-block;
   text-align: center;
   font-size: 20px;
@@ -122,7 +192,7 @@ export default {
 
 /* 移动端hover移除 */
 @media (any-hover: hover) {
-  .box span:hover {
+  .center span:hover {
     background-color: #39c5bb;
     color: #122c34;
     line-height: 4rem;

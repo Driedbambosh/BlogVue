@@ -185,7 +185,7 @@ export default {
     isoTime() {
       return (index) => {
         return moment(index, ["YYYY", moment.ISO_8601]).format(
-          "YYYY-MM-DD h:mm:ss"
+          "YYYY-MM-DD hh:mm:ss"
         );
       };
     },
