@@ -9,6 +9,15 @@ export function getArticles(params) {
   })
 }
 
+// 文章列表 (标签)
+export function getArticlesLabel(params) {
+  return request({
+    url: 'article/getArticleLabel',
+    method: 'get',
+    params
+  })
+}
+
 // 文章详情
 export function getArticle(params) {
   return request({

@@ -1,5 +1,5 @@
 <template>
-  <div class="box sm: p-3">
+  <div class="bg-repeat-x bg-cover bg-fixed box p-0 sm:p-3">
     <div class="leftArticle w-full sm:w-9/12">
       <!-- 背景图 -->
       <div
@@ -8,13 +8,14 @@
       >
         <!-- <img class="articleListLeft" :src="article.picture" alt=""> -->
       </div>
-      <div class="leftArticleContent">
+      <div class="leftArticleContent p-0 sm:p-5">
         <!-- <div class="ql-editor" v-html="article.article"></div> -->
+        <h1 style="font-size:2.125rem">{{article.title}}</h1>
         <div class="ql-container ql-snow">
           <div class="ql-editor" v-html="article.article"></div>
         </div>
       </div>
-      <div class="comment">
+      <div class="comment sm:pl-5 sm:pr-5 sm:pb-5">
         <h1>Comment</h1>
         <!-- 评论 -->
         <div v-if="articleCommentList.length !== 0" class="commentList">
@@ -53,18 +54,20 @@
               <div style="display: flex">
                 <div
                   :style="{
-                    'background-image':
-                      'url(' + itemSon.userId.avatar + ')',
+                    'background-image': 'url(' + itemSon.userId.avatar + ')',
                   }"
                   class="leftAvatarSon"
                 ></div>
                 <div class="rightComment">
-                  <h2 style="font-size:13px">{{ itemSon.userId.nickName }} 回复@ {{itemSon.commentUserId.nickName}}</h2>
-                  <p style="font-size:14px">{{ itemSon.content }}</p>
+                  <h2 style="font-size: 13px">
+                    {{ itemSon.userId.nickName }} 回复@
+                    {{ itemSon.commentUserId.nickName }}
+                  </h2>
+                  <p style="font-size: 14px">{{ itemSon.content }}</p>
                   <div class="TimeComment">
                     <span>{{ isoTime(itemSon.createdAt) }}</span>
                     <span
-                      @click="replySon(itemSon,item)"
+                      @click="replySon(itemSon, item)"
                       style="margin-left: 0.625rem; cursor: pointer"
                       >回复</span
                     >
@@ -76,8 +79,20 @@
           </div>
           <!-- --------- -->
         </div>
-        <div style="color:#b3b3b3;position:relative" v-else class="commentList">
-          <span style="position:absolute;top:50%;left:50%;transform: translate(-50%,-50%);">没有更多评论</span>
+        <div
+          style="color: #b3b3b3; position: relative"
+          v-else
+          class="commentList"
+        >
+          <span
+            style="
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+            "
+            >没有更多评论</span
+          >
         </div>
 
         <!-- 评论输入框 -->
@@ -197,10 +212,10 @@ export default {
       this.replyData = data;
     },
     // 回复
-    replySon(dataSon,data) {
+    replySon(dataSon, data) {
       this.isCommentFather = true;
-      this.replyData = {...dataSon};
-      this.replyData._id = data._id
+      this.replyData = { ...dataSon };
+      this.replyData._id = data._id;
     },
     // 获取文章评论
     getComment() {
@@ -285,6 +300,7 @@ h1 {
   display: flex;
   background-color: #f3f5f6;
   z-index: 9999;
+  background-image: url(../../assets/indexBg.png);
 }
 .box .left {
   background-color: #dcdcdc;
@@ -300,12 +316,12 @@ h1 {
   -webkit-box-shadow: -4px 5px 27px 2px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: -4px 5px 27px 2px rgba(0, 0, 0, 0.3);
   box-shadow: -4px 5px 27px 2px rgba(0, 0, 0, 0.3);
+  padding-bottom: 0.625rem;
 }
 .leftArticleContent {
-  padding: 1.25rem;
 }
 .comment {
-  padding: 0 1.25rem 1.25rem 1.25rem;
+  /* padding: 0 1.25rem 1.25rem 1.25rem; */
 }
 .comment h1 {
   background-color: #21476e;
@@ -313,7 +329,12 @@ h1 {
   padding: 0.3125rem;
 }
 .box .right {
-  background-color: #39c5bb;
+  /* background-color: #39c5bb; */
+  background: hsla(0, 0%, 0%, 0.25) border-box;
+  border-radius: 5px;
+  box-shadow: 0 0 0 1px hsl(0deg 0% 100% / 30%) inset,
+    0 0.5em 1em rgb(0 0 0 / 60%);
+  text-shadow: 0 1px 1px hsla(0, 0%, 100%, 0.3);
 }
 .articleContent {
   height: 100%;

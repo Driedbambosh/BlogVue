@@ -1,30 +1,30 @@
 <template>
-    <div class="fixed top-0 sm:static box flexContainer">
-      <div class="flex-shrink-0 left">Blog</div>
-      <div class="center invisible sm:visible">
-        <span
-          :class="active == 'articleList' ? 'activeClass' : ''"
-          @click="$router.push({ path: '/articleList' })"
-        >
-          <i class="el-icon-s-home"></i> 首页</span
-        >
-        <span
-          :class="active == 'about' ? 'activeClass' : ''"
-          @click="$router.push({ path: '/about' })"
-        >
-          <i class="el-icon-s-promotion"></i>
-          关于</span
-        >
-      </div>
-      <div class="flex-shrink-0 flex flex-row-reverse right">
-        <div
-          :style="{
-            'background-image': 'url(' + user.avatar+')',
-          }"
-          class="rounded-full bg-cover logo w-full h-full"
-        ></div>
-      </div>
+  <div id="flexContainer" class="fixed top-0 box flexContainer">
+    <div class="flex-shrink-0 left">Blog</div>
+    <div class="center invisible sm:visible">
+      <span
+        :class="active == 'articleList' ? 'activeClass' : ''"
+        @click="$router.push({ path: '/articleList' })"
+      >
+        <i class="el-icon-s-home"></i> 首页</span
+      >
+      <span
+        :class="active == 'about' ? 'activeClass' : ''"
+        @click="$router.push({ path: '/about' })"
+      >
+        <i class="el-icon-s-promotion"></i>
+        关于</span
+      >
     </div>
+    <div class="flex-shrink-0 flex flex-row-reverse right">
+      <div
+        :style="{
+          'background-image': 'url(' + user.avatar + ')',
+        }"
+        class="rounded-full bg-cover logo w-full h-full"
+      ></div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -36,6 +36,9 @@ export default {
       user: {},
       active: "",
     };
+  },
+  mounted() {
+    // window.addEventListener("scroll", this.handleScroll);
   },
   watch: {
     $route(to, from) {
@@ -49,6 +52,18 @@ export default {
     getUser() {
       this.user = getUserInfo();
     },
+    // handleScroll() {
+    //   var scrollTop =
+    //     window.pageYOffset ||
+    //     document.documentElement.scrollTop ||
+    //     document.body.scrollTop;
+    //   let offsetHeight = document.querySelector("#flexContainer").offsetHeight
+    //   if(scrollTop-20 > offsetHeight) {
+    //     document.querySelector("#flexContainer").style.position = "fixed"
+    //   }else {
+    //     document.querySelector("#flexContainer").style.position = "fixed"
+    //   }
+    // },
   },
 };
 </script>
