@@ -114,7 +114,7 @@ export default {
         });
     },
     register() {
-      const taht = this;
+      const that = this;
       if (!this.isPassword) {
         this.$message.warning("两次密码输入不一致");
       } else {
