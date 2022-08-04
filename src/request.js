@@ -10,6 +10,7 @@ import { ACCESS_TOKEN } from "@/store/mutation-types";
  * 禁止点击蒙层、显示一秒后关闭
  */
 const tip = msg => {
+    
     Message({
         message: msg,
         duration: 1000

@@ -11,15 +11,14 @@
       </h1>
       <div v-for="item in articleData.data" :key="item._id" class="articleList">
         <div class="articleContent">
-          <div
-            :style="{ 'background-image': 'url(' + item.picture + ')' }"
-            class="bg-cover hidden sm:block articleListLeft"
+          <img
+            :src="item.picture"
             style="cursor: pointer"
             id="left"
             @click="getArticleData(item._id)"
           >
             <!-- <img class="articleListLeft" :src="item.picture" alt=""> -->
-          </div>
+          </img>
           <div id="right" class="w-full sm:w-5/6 p-5">
             <h1
               style="cursor: pointer; font-size: 26px"
