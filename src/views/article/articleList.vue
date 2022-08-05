@@ -20,12 +20,12 @@
             <!-- <img class="articleListLeft" :src="item.picture" alt=""> -->
           </img>
           <div id="right" class="w-full sm:w-5/6 p-5">
-            <h1
+            <span
               style="cursor: pointer; font-size: 26px"
               @click="getArticleData(item._id)"
             >
               {{ item.title }}
-            </h1>
+            </span>
             <p
               style="cursor: pointer"
               @click="getArticleData(item._id)"
@@ -148,6 +148,10 @@ export default {
     this.offsetTop = document.querySelector("#label-content").offsetTop;
     window.addEventListener("scroll", this.handleScroll);
   },
+  beforeDestroy() {
+    window.removeEventListener("scroll", this.handleScroll);
+
+  },
   methods: {
     // 取消搜索
     dontSearch() {
@@ -251,7 +255,7 @@ h1 {
   -webkit-box-orient: vertical;
 }
 .box {
-  min-height: 100vh;
+  min-height: calc(100vh - 3.4375rem);
   display: flex;
   z-index: 9999;
   background-image: url(../../assets/indexBg.png);
@@ -320,7 +324,7 @@ h1 {
   width: 9.375rem;
 }
 #left {
-  width: 20%;
+  width: 20rem;
   background-color: #fff;
 }
 #right {

@@ -5,6 +5,9 @@ import {
   Button, Message, MessageBox, Form, Dropdown,
   DropdownMenu,
   DropdownItem,
+  Row,
+  Col,
+  Card,
   FormItem, Input, Icon, Pagination, Avatar, Loading, Popover, Tag,
 } from 'element-ui';
 import store from './store'
@@ -23,6 +26,9 @@ Vue.config.productionTip = false
 
 
 Vue.use(Button);
+Vue.use(Row);
+Vue.use(Card);
+Vue.use(Col);
 Vue.use(Form);
 Vue.use(FormItem);
 Vue.use(Input);
