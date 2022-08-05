@@ -10,12 +10,12 @@
           </div>
         </div>
         <div class="statement">
-          <div class="item">Email：fengziy@aliyun.com</div>
-          <div class="item">QQ：1224971566</div>
+          <div class="item">Email：a1145761792@163.com</div>
+          <div class="item">QQ：1145761792</div>
           <div class="item">
-            CSDN：
-            <a target="_blank" href="https://blog.csdn.net/feng_zi_ye"
-              >https://blog.csdn.net/feng_zi_ye</a
+            GitHub：
+            <a target="_blank" href="https://github.com/Driedbambosh"
+              >https://github.com/Driedbambosh</a
             >
           </div>
         </div>
@@ -25,9 +25,9 @@
             <dt>博客开源</dt>
             <dd></dd>
             <dt>涉及技术</dt>
-            <dd>Vue、Vue-Router、Element-ui、Vue-i18n</dd>
-            <dt>其他</dt>
-            <dd>百度分享、点击爱心特效、复制追加版权信息</dd>
+            <dd>
+              Vue、Vue-Router、Element-ui、animejs、nprogress、highlight、tailwindcss
+            </dd>
           </dl>
         </el-card>
         <h5 class="title"><i class="el-icon-star-on" />给我留言</h5>
@@ -74,26 +74,26 @@ export default {
         name: [
           {
             required: true,
-            message: "",
+            message: "名字是必填项",
             trigger: "blur",
           },
         ],
         email: [
           {
             required: true,
-            message: "",
+            message: "邮箱是必填项",
             trigger: "blur",
           },
           {
             type: "email",
-            message: "",
+            message: "邮箱格式不正确",
             trigger: ["blur", "change"],
           },
         ],
         content: [
           {
             required: true,
-            message: "",
+            message: "留言内容是必填项",
             trigger: "blur",
           },
         ],
