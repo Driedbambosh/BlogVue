@@ -114,7 +114,7 @@ export default {
         });
     },
     register() {
-      const taht = this;
+      const that = this;
       if (!this.isPassword) {
         this.$message.warning("两次密码输入不一致");
       } else {
@@ -133,7 +133,7 @@ export default {
     loginSuccess(res) {
       this.$router.push("/");
 
-      this.$message.success(res.message);
+      // this.$message.success(res.message);
     },
     loginFailed(err) {
       this.$message.warning(err);

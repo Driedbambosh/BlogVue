@@ -1,7 +1,8 @@
 <template>
   <div class="home">
-    <top-bar ref="topBar"></top-bar>
+    <top-bar @labelSearch="tableLabel" ref="topBar"></top-bar>
     <router-view
+      ref="router"
       @loadingtrue="loadingtrue"
       @loadingFalse="loadingFalse"
       class="sm:h-full home"
@@ -32,16 +33,20 @@ export default {
     topBar,
     bottomBar,
   },
-  created() {},
+  
   mounted() {
     this.getUser();
   },
+ 
   data() {
     return {
       loading: false,
     };
   },
   methods: {
+    tableLabel(id,name) {
+      this.$refs.router.searchLabel(id,name)
+    },
     getUser() {
       getInfo().then((res) => {
         storage.set("userInfo", res[0], 7 * 24 * 60 * 60 * 1000);
